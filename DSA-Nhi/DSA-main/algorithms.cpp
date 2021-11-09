@@ -11,164 +11,191 @@ void swap(int &a, int &b)
 // 1.SelectionSort
 void selectionSortWithComparison(int a[], int n, int &count_compare)
 {
-    int  j, min;
-    for (int i = 0; ++count_compare && i < n  ; i++)
+    int j;
+    for (int i = 0; ++count_compare && i < n; i++)
     {
-	    min = i;
-    	for (j = i + 1; ++count_compare && j < n; j++)
-        	if (++count_compare && a[j] < a[min])
-        	 {
-        	    swap(a[min], a[j]);
-             }
+        for (j = i + 1; ++count_compare && j < n; j++)
+            if (++count_compare && a[j] < a[i])
+            {
+                swap(a[i], a[j]);
+            }
     }
 }
 void selectionSortWithTime(int a[], int n)
 {
-    int  j, min;
-    for (int i = 0;  i < n  ; i++)
+    int j;
+    for (int i = 0; i < n; i++)
     {
-	    min = i;
-    	for (j = i + 1; j < n; j++)
-        	if (a[j] < a[min])
-        	 {
-        	    swap(a[i], a[j]);
-             }
+        for (j = i + 1; j < n; j++)
+            if (a[j] < a[i])
+            {
+                swap(a[i], a[j]);
+            }
     }
-
 }
 
-//7.MergeSort, souce: https://www.softwaretestinghelp.com/merge-sort/
-void mergeWithTime(int *arr, int low, int high, int mid) {
-    int i, j, k, c[50];
-    i = low;
-    k = low;
-    j = mid + 1;
-    while (i <= mid && j <= high) {
-        if (arr[i] < arr[j]) {
-            c[k] = arr[i];
-            k++;
-            i++;
+// 7.MergeSort, souce: https://www.geeksforgeeks.org/merge-sort/
+void mergeWithTime(int array[], int const left, int const mid, int const right)
+{
+    auto const subArrayOne = mid - left + 1;
+    auto const subArrayTwo = right - mid;
+
+    auto *leftArray = new int[subArrayOne],
+         *rightArray = new int[subArrayTwo];
+
+    for (auto i = 0; i < subArrayOne; i++)
+        leftArray[i] = array[left + i];
+    for (auto j = 0; j < subArrayTwo; j++)
+        rightArray[j] = array[mid + 1 + j];
+
+    auto indexOfSubArrayOne = 0,
+         indexOfSubArrayTwo = 0;
+    int indexOfMergedArray = left;
+
+    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo)
+    {
+        if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo])
+        {
+            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+            indexOfSubArrayOne++;
         }
-        else  {
-            c[k] = arr[j];
-            k++;
-            j++;
+        else
+        {
+            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
         }
+        indexOfMergedArray++;
     }
-    while (i <= mid) {
-        c[k] = arr[i];
-        k++;
-        i++;
+
+    while (indexOfSubArrayOne < subArrayOne)
+    {
+        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+        indexOfSubArrayOne++;
+        indexOfMergedArray++;
     }
-    while (j <= high) {
-        c[k] = arr[j];
-        k++;
-        j++;
-    }
-    for (i = low; i < k; i++)  {
-        arr[i] = c[i];
+
+    while (indexOfSubArrayTwo < subArrayTwo)
+    {
+        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+        indexOfSubArrayTwo++;
+        indexOfMergedArray++;
     }
 }
 
-void mergeSortWithTime(int *arr, int low, int high) {
-    int mid;
-    if (low < high){
-        mid=(low+high)/2;
-        mergeSortWithTime(arr,low,mid);
-        mergeSortWithTime(arr,mid+1,high);
-        mergeWithTime(arr,low,high,mid);
+void mergeSortWithTime(int array[], int const begin, int const end)
+{
+    if (begin >= end)
+        return;
+
+    auto mid = begin + (end - begin) / 2;
+    mergeSortWithTime(array, begin, mid);
+    mergeSortWithTime(array, mid + 1, end);
+    mergeWithTime(array, begin, mid, end);
+}
+
+void mergeWithComparison(int array[], int const left, int const mid, int const right, int &count_compare)
+{
+    auto const subArrayOne = mid - left + 1;
+    auto const subArrayTwo = right - mid;
+
+    auto *leftArray = new int[subArrayOne],
+         *rightArray = new int[subArrayTwo];
+
+    for (auto i = 0; ++count_compare && i < subArrayOne; i++)
+        leftArray[i] = array[left + i];
+    for (auto j = 0; ++count_compare && j < subArrayTwo; j++)
+        rightArray[j] = array[mid + 1 + j];
+
+    auto indexOfSubArrayOne = 0,
+         indexOfSubArrayTwo = 0;
+    int indexOfMergedArray = left;
+
+    while (++count_compare && indexOfSubArrayOne < subArrayOne && ++count_compare && indexOfSubArrayTwo < subArrayTwo)
+    {
+        if (++count_compare && leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo])
+        {
+            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+            indexOfSubArrayOne++;
+        }
+        else
+        {
+            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
+        }
+        indexOfMergedArray++;
+    }
+
+    while (++count_compare && indexOfSubArrayOne < subArrayOne)
+    {
+        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+        indexOfSubArrayOne++;
+        indexOfMergedArray++;
+    }
+
+    while (++count_compare && indexOfSubArrayTwo < subArrayTwo)
+    {
+        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+        indexOfSubArrayTwo++;
+        indexOfMergedArray++;
     }
 }
 
-void mergeWithComparison(int *arr, int low, int high, int mid, int &comparisons_count) {
-    int i, j, k, c[50];
-    i = low;
-    k = low;
-    j = mid + 1;
-    while (++comparisons_count && i <= mid && j <= high) {
-        if (++comparisons_count && arr[i] < arr[j]) {
-            c[k] = arr[i];
-            k++;
-            i++;
-        }
-        else  {
-            c[k] = arr[j];
-            k++;
-            j++;
-        }
-    }
-    while (++comparisons_count && i <= mid) {
-        c[k] = arr[i];
-        k++;
-        i++;
-    }
-    while (++comparisons_count && j <= high) {
-        c[k] = arr[j];
-        k++;
-        j++;
-    }
-    for (i = low; ++comparisons_count && i < k; i++)  {
-        arr[i] = c[i];
-    }
+void mergeSortWithComparison(int array[], int const begin, int const end, int &count_compare)
+{
+    if (++count_compare && begin >= end)
+        return;
+
+    auto mid = begin + (end - begin) / 2;
+    mergeSortWithComparison(array, begin, mid, count_compare);
+    mergeSortWithComparison(array, mid + 1, end, count_compare);
+    mergeWithComparison(array, begin, mid, end, count_compare);
 }
 
-void mergeSortWithComparison(int *arr, int low, int high, int &comparisons_count) {
-    int mid;
-    if (++comparisons_count && low < high) {
-        mid=(low+high)/2;
-        mergeSortWithComparison(arr,low,mid, comparisons_count);
-        mergeSortWithComparison(arr,mid+1,high, comparisons_count);
-        mergeWithComparison(arr,low,high,mid, comparisons_count);
-    }
-}
- 
 // 9.RadixSort
 void radixSortWithComparison(int a[], int n, int &count_compare)
 {
-	int b[n], temp, i ;
+    int b[n], temp, i;
     int box[10] = {0}, m = a[0];
-    
-	for (i = 0;++count_compare && i < n; i++)
-	{
-		if (++count_compare && a[i] > m)
-			m = a[i];
-	}
-	while (++count_compare && m / temp > 0)
-	{
-		for (i = 0;++count_compare && i < n; i++)
-			box[a[i] / temp % 10]++;
-		for (i = 1;++count_compare && i < 10; i++)
-			box[i] += box[i - 1];
-		for (i = n - 1;++count_compare && i >= 0; i--)
-			b[--box[a[i] / temp % 10]] = a[i];
-		for (i = 0;++count_compare && i < n; i++)
-			a[i] = b[i];
-		temp *= 10;
-	}
-}
 
+    for (i = 0; ++count_compare && i < n; i++)
+    {
+        if (++count_compare && a[i] > m)
+            m = a[i];
+    }
+    while (++count_compare && m / temp > 0)
+    {
+        for (i = 0; ++count_compare && i < n; i++)
+            box[a[i] / temp % 10]++;
+        for (i = 1; ++count_compare && i < 10; i++)
+            box[i] += box[i - 1];
+        for (i = n - 1; ++count_compare && i >= 0; i--)
+            b[--box[a[i] / temp % 10]] = a[i];
+        for (i = 0; ++count_compare && i < n; i++)
+            a[i] = b[i];
+        temp *= 10;
+    }
+}
 
 void radixSortWithTime(int a[], int n)
 {
-	int b[n], temp, i ;
-    int box[10] = {0},  m = a[0];
-    
-	for (i = 0; i < n; i++)
-	{
-		if (a[i] > m)
-			m = a[i];
-	}
-	while (m / temp > 0)
-	{
-		for (i = 0;i < n; i++)
-			box[a[i] / temp % 10]++;
-		for (i = 1; i < 10; i++)
-			box[i] += box[i - 1];
-		for (i = n - 1; i >= 0; i--)
-			b[--box[a[i] / temp % 10]] = a[i];
-		for (i = 0; i < n; i++)
-			a[i] = b[i];
-		temp *= 10;
-	}
-}
+    int b[n], temp, i;
+    int box[10] = {0}, m = a[0];
 
+    for (i = 0; i < n; i++)
+    {
+        if (a[i] > m)
+            m = a[i];
+    }
+    while (m / temp > 0)
+    {
+        for (i = 0; i < n; i++)
+            box[a[i] / temp % 10]++;
+        for (i = 1; i < 10; i++)
+            box[i] += box[i - 1];
+        for (i = n - 1; i >= 0; i--)
+            b[--box[a[i] / temp % 10]] = a[i];
+        for (i = 0; i < n; i++)
+            a[i] = b[i];
+        temp *= 10;
+    }
+}
