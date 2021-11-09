@@ -11,23 +11,25 @@ void swap(int &a, int &b)
 // 1.SelectionSort
 void selectionSortWithComparison(int a[], int n, int &count_compare)
 {
-    int j;
+    int j. min;
     for (int i = 0; ++count_compare && i < n; i++)
     {
+        min = i;
         for (j = i + 1; ++count_compare && j < n; j++)
-            if (++count_compare && a[j] < a[i])
+            if (++count_compare && a[j] < a[min])
             {
-                swap(a[i], a[j]);
+                swap(a[min], a[j]);
             }
     }
 }
 void selectionSortWithTime(int a[], int n)
 {
-    int j;
+    int j, min;
     for (int i = 0; i < n; i++)
     {
+        min = i;
         for (j = i + 1; j < n; j++)
-            if (a[j] < a[i])
+            if (a[j] < a[min])
             {
                 swap(a[i], a[j]);
             }
