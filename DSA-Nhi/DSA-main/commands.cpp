@@ -65,7 +65,10 @@ double selectAlgorithmWithTime(string algorithm_name, int *array, int size) {
         exec_time = END_TIME - START_TIME;
     }
     else if (algorithm_name == "insertion-sort") {
-        //insertion sort
+        START_TIME = high_resolution_clock::now();
+        insertionSortWithTime(array, size);
+        END_TIME = high_resolution_clock::now();
+        exec_time = END_TIME - START_TIME;
     }
     else if (algorithm_name == "bubble-sort") {
         //bubble sort
@@ -80,7 +83,10 @@ double selectAlgorithmWithTime(string algorithm_name, int *array, int size) {
         exec_time = END_TIME - START_TIME;
     }
     else if (algorithm_name == "quick-sort") {
-        //quick sort
+        START_TIME = high_resolution_clock::now();
+        quickSorWithTime(array, 0, size - 1);
+        END_TIME = high_resolution_clock::now();
+        exec_time = END_TIME - START_TIME;
     }
     else {
         START_TIME = high_resolution_clock::now();
@@ -97,7 +103,7 @@ void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, 
         selectionSortWithComparison(array, size, comparison);
     }
     else if (algorithm_name == "insertion-sort") {
-        //insertion sort
+        selectAlgorithmWithComparison(array, size, comparison);
     }
     else if (algorithm_name == "bubble-sort") {
         //bubble sort
@@ -109,7 +115,7 @@ void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, 
         mergeSortWithComparison(array, 0, size - 1, comparison);
     }
     else if (algorithm_name == "quick-sort") {
-        //quick sort
+        quickSorWithComparison(array, 0, size - 1, comparison);
     }
     else {
         radixSortWithComparison(array, size, comparison);
@@ -230,4 +236,49 @@ void runCommand4(string algorithm_name, string algorithm_name1, string input_fil
     writeToOutputFile("output.txt", array, size);
     
     delete []array;
+}
+
+//Command 5 ------------------------------------------------------------------------
+void runCommand5(string algorithm_name1, string algorithm_name2, int size, string input_order) {
+    int count_compare1 = 0, count_compare2 = 0;
+    double time1= 0, time2 = 0;
+    int array[size];
+    int FLAG_ORDER;
+    string order;
+
+    if (input_order == "-rand") {
+        FLAG_ORDER = 0;
+        order = "Random";
+    }
+    else if (input_order == "-sorted") {
+        FLAG_ORDER = 1;
+        order = "Sorted";
+    }
+    else if (input_order == "-rev") {
+        FLAG_ORDER = 2;
+        order = "Reverse";
+    }
+    else {
+        FLAG_ORDER = 3;
+        order = "Nearly sorted";
+    }
+
+    //Generate data
+    GenerateData(array, size, FLAG_ORDER);
+    writeToInputFile("input.txt", array, size);
+
+    //Display necessary informations
+    cout << "Input size: " << size << endl;
+    cout << "Input order: " << order << endl;
+    cout << "------------------------" << endl;
+
+    //Time and counting comparasion
+    time1 = selectAlgorithmWithTime(algorithm_name1, array, size);
+    time2 = selectAlgorithmWithTime(algorithm_name2, array, size);
+    selectAlgorithmWithComparison(algorithm_name1, array, size, count_compare1);
+    selectAlgorithmWithComparison(algorithm_name2, array, size, count_compare2);
+    cout << "Running time: " << time1 << " (ms) | " << time2 << endl;
+    cout << "Comparisons: " << count_compare1 << " (ms) | " << count_compare2 << endl;
+
+    delete[]array;
 }
