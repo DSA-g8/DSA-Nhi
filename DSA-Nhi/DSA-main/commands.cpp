@@ -55,7 +55,7 @@ void writeToInputFile(string input_file, int array[], int size) {
     fo.close();
 }
 
-double selectAlgorithmWithTime(string algorithm_name, int *array, int size) {
+double selectAlgorithmWithTime(string algorithm_name, int *array, int size, double& time) {
     duration<double, milli> exec_time;
 
     if (algorithm_name == "selection-sort") {
@@ -98,7 +98,7 @@ double selectAlgorithmWithTime(string algorithm_name, int *array, int size) {
     return exec_time.count();
 }
 
-void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, int &comparison) {
+void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, unsigned long long &comparison) {
     if (algorithm_name == "selection-sort") {
         selectionSortWithComparison(array, size, comparison);
     }
@@ -240,9 +240,12 @@ void runCommand4(string algorithm_name, string algorithm_name1, string input_fil
 
 //Command 5 ------------------------------------------------------------------------
 void runCommand5(string algorithm_name1, string algorithm_name2, int size, string input_order) {
-    int count_compare1 = 0, count_compare2 = 0;
+    unsigned long long count_compare1 = 0, count_compare2 = 0;
     double time1= 0, time2 = 0;
-    int array[size];
+    int* array1 = new int[size];
+    int* array2 = new int[size];
+    int* array3 = new int[size];
+    int* array4 = new int[size];
     int FLAG_ORDER;
     string order;
 
@@ -265,7 +268,10 @@ void runCommand5(string algorithm_name1, string algorithm_name2, int size, strin
 
     //Generate data
     GenerateData(array, size, FLAG_ORDER);
-    writeToInputFile("input.txt", array, size);
+    writeToInputFile("input.txt", array1, size);
+    writeToInputFile("input.txt", array2, size);
+    writeToInputFile("input.txt", array3, size);
+    writeToInputFile("input.txt", array4, size);
 
     //Display necessary informations
     cout << "Input size: " << size << endl;
@@ -273,12 +279,12 @@ void runCommand5(string algorithm_name1, string algorithm_name2, int size, strin
     cout << "------------------------" << endl;
 
     //Time and counting comparasion
-    time1 = selectAlgorithmWithTime(algorithm_name1, array, size);
-    time2 = selectAlgorithmWithTime(algorithm_name2, array, size);
-    selectAlgorithmWithComparison(algorithm_name1, array, size, count_compare1);
-    selectAlgorithmWithComparison(algorithm_name2, array, size, count_compare2);
+    time1 = selectAlgorithmWithTime(algorithm_name1, array1, tine1);
+    time2 = selectAlgorithmWithTime(algorithm_name2, array2, time2);
+    selectAlgorithmWithComparison(algorithm_name1, array3, size, count_compare1);
+    selectAlgorithmWithComparison(algorithm_name2, array4, size, count_compare2);
     cout << "Running time: " << time1 << " (ms) | " << time2 << endl;
     cout << "Comparisons: " << count_compare1 << " (ms) | " << count_compare2 << endl;
 
-    delete[]array;
+    delete[] array1, array2, array3, array4;
 }
