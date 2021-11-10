@@ -47,27 +47,23 @@ int main(int argc, char* argv[]) {
 
         cout << "Algorithm: " << algorithm_name << " | " << algorithm_name1 << endl;
 
+        //if (argc == 6) {
+        //    input_size = stoi(argv[4]);
 
-        //Nhi
-        if (argc == 6) {
-            input_size = stoi(argv[4]);
-
-            runCommand4(algorithm_name, algorithm_name1, input_file);
-        }
-        else {
-            string temp = argv[3];
-            if (isNumber(temp)) {
-                //runCommand3();
-            }
-            else {
-                input_file = temp;
-                output_param = argv[4];
-                runCommand1(algorithm_name, input_file, output_param);
-            }
-        }
+        //    runCommand4(algorithm_name, algorithm_name1, input_file);
+        //}
+        //else {
+        //    string temp = argv[3];
+        //    if (isNumber(temp)) {
+        //        //runCommand3();
+        //    }
+        //    else {
+        //        input_file = temp;
+        //        output_param = argv[4];
+        //        runCommand1(algorithm_name, input_file, output_param);
+        //    }
+        //}
         //Khan
-
-        cout << "Algorithm: " << algorithm_name << " | " << algorithm_name1 << endl;
 
         if (argc == 6) {
             input_size = stoi(argv[4]);
