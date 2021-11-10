@@ -164,11 +164,20 @@ void runCommand1(string algorithm_name, string input_file, string output_param)
     }
     else
     {
+        //Create and copy data from main array to a second array for sorting to count comparisons
+        int *second_array = new int[size];
+        for (int i = 0; i < size; i++) {
+            second_array[i] = array[i];
+        }
+
         selectAlgorithmWithTime(algorithm_name, array, size, time);
-        selectAlgorithmWithComparison(algorithm_name, array, size, count_compare);
+        selectAlgorithmWithComparison(algorithm_name, second_array, size, count_compare);
 
         cout << "Running time: " << time << " (ms)" << endl;
         cout << "Comparisons: " << count_compare << endl;
+
+        //Delete the second array as it's not needed anymore
+        delete[] second_array;
     }
 
     // Write the sorted array to file
@@ -212,7 +221,7 @@ void runCommand2(string algorithm_name, int size, string input_order, string out
     cout << "Input order " << order << endl;
     cout << "------------------------" << endl;
 
-    // Generate data
+    // Generate data for main array
     GenerateData(array, size, FLAG_ORDER);
     writeToInputFile("input.txt", array, size);
 
@@ -229,11 +238,20 @@ void runCommand2(string algorithm_name, int size, string input_order, string out
     }
     else
     {
+        //Create and copy data from main array to a second array for sorting to count comparisons
+        int *second_array = new int[size];
+        for (int i = 0; i < size; i++) {
+            second_array[i] = array[i];
+        }
+
         selectAlgorithmWithTime(algorithm_name, array, size, time);
-        selectAlgorithmWithComparison(algorithm_name, array, size, count_compare);
+        selectAlgorithmWithComparison(algorithm_name, second_array, size, count_compare);
 
         cout << "Running time: " << time << " (ms)" << endl;
         cout << "Comparisons: " << count_compare << endl;
+
+        //Delete second array as it's not needed anymore
+        delete[] second_array;
     }
 
     // Write sorted array to output file
@@ -248,7 +266,10 @@ void runCommand4(string algorithm_name, string algorithm_name1, string input_fil
     unsigned long long count_compare = 0, count_compare1 = 0;
     double time = 0, time1 = 0;
     int size = 0;
-    int *array = readDataFromFile("input.txt", size);
+    int *array1 = readDataFromFile("input.txt", size);
+    int *array2 = readDataFromFile("input.txt", size);
+    int *array3 = readDataFromFile("input.txt", size);
+    int *array4 = readDataFromFile("input.txt", size);
 
     // Display necessary informations
     cout << "Input file: " << input_file << endl;
@@ -256,16 +277,16 @@ void runCommand4(string algorithm_name, string algorithm_name1, string input_fil
     cout << "------------------------" << endl;
 
     // Time and counting comparasion
-    selectAlgorithmWithTime(algorithm_name, array, size, time);
-    selectAlgorithmWithTime(algorithm_name1, array, size, time1);
-    selectAlgorithmWithComparison(algorithm_name, array, size, count_compare);
-    selectAlgorithmWithComparison(algorithm_name1, array, size, count_compare1);
+    selectAlgorithmWithTime(algorithm_name, array1, size, time);
+    selectAlgorithmWithTime(algorithm_name1, array2, size, time1);
+    selectAlgorithmWithComparison(algorithm_name, array3, size, count_compare);
+    selectAlgorithmWithComparison(algorithm_name1, array4, size, count_compare1);
 
     cout << "Running time: " << time << "(ms) | " << time1 << "(ms)" << endl;
     cout << "Comparisons: " << count_compare << " | " << count_compare1 << endl;
 
     // Write the sorted array to file
-    writeToOutputFile("output.txt", array, size);
+    writeToOutputFile("output.txt", array1, size);
 
-    delete[] array;
+    delete[] array1, array2, array3, array4;
 }
