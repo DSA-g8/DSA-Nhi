@@ -41,12 +41,14 @@ int main(int argc, char* argv[]) {
     else if (mode == "-c") {
         cout << "COMPARE MODE" << endl;
         //Implement mode comparison here
-        //Nhi
+        
         algorithm_name = argv[2];
         algorithm_name1 = argv[3];
 
         cout << "Algorithm: " << algorithm_name << " | " << algorithm_name1 << endl;
 
+
+        //Nhi
         if (argc == 6) {
             input_size = stoi(argv[4]);
 
@@ -64,6 +66,9 @@ int main(int argc, char* argv[]) {
             }
         }
         //Khan
+
+        cout << "Algorithm: " << algorithm_name << " | " << algorithm_name1 << endl;
+
         if (argc == 6) {
             input_size = stoi(argv[4]);
             input_order = argv(5);
