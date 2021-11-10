@@ -105,7 +105,7 @@ void selectAlgorithmWithTime(string algorithm_name, int *array, int size, double
     time = exec_time.count();
 }
 
-void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, int &count_compare)
+void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, unsigned long long &count_compare)
 {
     if (algorithm_name == "selection-sort")
     {
@@ -140,7 +140,7 @@ void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, 
 // Command 1 ------------------------------------------------------------------------
 void runCommand1(string algorithm_name, string input_file, string output_param)
 {
-    int count_compare = 0;
+    unsigned long long count_compare = 0;
     double time = 0;
     int size = 0;
     int *array = readDataFromFile(input_file, size);
@@ -181,7 +181,7 @@ void runCommand1(string algorithm_name, string input_file, string output_param)
 void runCommand2(string algorithm_name, int size, string input_order, string output_param)
 {
     double time = 0;
-    int count_compare = 0;
+    unsigned long long count_compare = 0;
     int *array = new int[size];
     int FLAG_ORDER;
     string order;
@@ -245,7 +245,7 @@ void runCommand2(string algorithm_name, int size, string input_order, string out
 // Command 4 ----------------------------------------------------------------------------------------
 void runCommand4(string algorithm_name, string algorithm_name1, string input_file)
 {
-    int count_compare = 0, count_compare1 = 0;
+    unsigned long long count_compare = 0, count_compare1 = 0;
     double time = 0, time1 = 0;
     int size = 0;
     int *array = readDataFromFile("input.txt", size);

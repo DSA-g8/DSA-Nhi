@@ -9,20 +9,18 @@ void swap(int &a, int &b)
 }
 
 // 1.SelectionSort
-void selectionSortWithComparison(int a[], int n)
+void selectionSortWithComparison(int a[], int n, unsigned long long &count_compare)
 {
     int  j,  min;
-	unsigned int count_compare = 0;
     for (int i = 0; ++count_compare && i < n  ; i++)
     {
 		min = i;
     	for (j = i + 1; ++count_compare && j < n; j++)
         	if (++count_compare && a[j] < a[min])
-        	 {
-        	    HoanVi(a[min], a[j]);
-             }
+        	{
+        	    swap(a[min], a[j]);
+            }
     }
-	cout << "The number of comparisons in the selectionsort algorithm: " << count_compare << endl;
 }
 void selectionSortWithTime(int a[], int n)
 {
@@ -97,7 +95,7 @@ void mergeSortWithTime(int array[], int const begin, int const end)
     mergeWithTime(array, begin, mid, end);
 }
 
-void mergeWithComparison(int array[], int const left, int const mid, int const right, int &count_compare)
+void mergeWithComparison(int array[], int const left, int const mid, int const right, unsigned long long &count_compare)
 {
     auto const subArrayOne = mid - left + 1;
     auto const subArrayTwo = right - mid;
@@ -144,7 +142,7 @@ void mergeWithComparison(int array[], int const left, int const mid, int const r
     }
 }
 
-void mergeSortWithComparison(int array[], int const begin, int const end, int &count_compare)
+void mergeSortWithComparison(int array[], int const begin, int const end, unsigned long long &count_compare)
 {
     if (++count_compare && begin >= end)
         return;
@@ -156,7 +154,7 @@ void mergeSortWithComparison(int array[], int const begin, int const end, int &c
 }
 
 // 9.RadixSort
-int MaxNumber(int a[], int n,unsigned int &count_compare )
+int MaxNumber(int a[], int n, unsigned long long &count_compare )
 {
     int m = a[0];
 	count_compare = 0;
@@ -165,7 +163,8 @@ int MaxNumber(int a[], int n,unsigned int &count_compare )
             m = a[i];
     return m;
 }
-void Count(int arr[], int n, int exp, unsigned int &count_compare)
+
+void Count(int arr[], int n, int exp, unsigned long long &count_compare)
 {
     int bucket[n]; 
     int i, box[10] = { 0 };
@@ -185,16 +184,14 @@ void Count(int arr[], int n, int exp, unsigned int &count_compare)
     for (i = 0; ++count_compare && i < n; i++)
         arr[i] = bucket[i];
 }
- 
- 
-void radixSortWithComparison(int a[], int n)
+
+
+void radixSortWithComparison(int a[], int n, unsigned long long &count_compare)
 {
-    unsigned int count_compare = 0;
 	int m =  MaxNumber(a, n, count_compare);
  
     for (int exp = 1; m / exp > 0; exp *= 10)
         Count(a, n, exp, count_compare);
-    cout << "The number of comparisons in the algorithm: " << count_compare;
 }
 
 int MaxNumber1(int a[], int n )
@@ -205,6 +202,7 @@ int MaxNumber1(int a[], int n )
             m = a[i];
     return m;
 }
+
 void Count1(int arr[], int n, int exp)
 {
     int bucket[n]; 
@@ -224,6 +222,7 @@ void Count1(int arr[], int n, int exp)
     for (i = 0; i < n; i++)
         arr[i] = bucket[i];
 }
+
 void radixSortWithTime(int a[], int n)
 {
 	int m =  MaxNumber1(a, n);
