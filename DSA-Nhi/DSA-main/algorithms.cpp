@@ -37,7 +37,40 @@ void selectionSortWithTime(int a[], int n)
 
 }
 
-//7.MergeSort, souce: https://www.softwaretestinghelp.com/merge-sort/
+//2. InsertionSort, souce:https://www.geeksforgeeks.org/insertion-sort/
+void insertionSortWithComparison(int arr[], int n, int &compareCountInsert)
+{
+    int i, key, j;
+    for (i = 1; ++compareCountInsert && i < n; i++)
+    {
+        key = arr[i];
+        j = i - 1;
+        while (++compareCountInsert && j >= 0 && ++compareCountInsert && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void insertionSortWithTime(int arr[], int n)
+{
+    int i, key, j;
+    for (i = 1; i < n; i++)
+    {
+        key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+//5.MergeSort, souce: https://www.softwaretestinghelp.com/merge-sort/
 void mergeWithTime(int *arr, int low, int high, int mid) {
     int i, j, k, c[50];
     i = low;
@@ -121,8 +154,62 @@ void mergeSortWithComparison(int *arr, int low, int high, int &comparisons_count
         mergeWithComparison(arr,low,high,mid, comparisons_count);
     }
 }
- 
-// 9.RadixSort
+ //6. QuickSort, souce:https://www.geeksforgeeks.org/quick-sort/
+int partitionTime(int arr[], int low, int high)
+{
+    int pivot = arr[high]; // pivot 
+    int i = (low - 1); 
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        if (arr[j] < pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+int partitionComparison(int arr[], int low, int high, int &countCompareQuick)
+{
+    int pivot = arr[high]; // pivot 
+    int i = (low - 1);
+
+    for (int j = low; ++countCompareQuick && j <= high - 1; j++)
+    {
+        if (++countCompareQuick &&arr[j] < pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSorWithTime(int arr[], int low, int high)
+{
+    if (low < high)
+    {
+        int pi = partition(arr, low, high);
+        quickSorWithTime(arr, low, pi - 1);
+        quickSorWithTime(arr, pi + 1, high);
+    }
+}
+
+void quickSorWithComparison(int arr[], int low, int high, int &countCompareQuick)
+{
+    if ( ++countCompareQuick && low < high)
+    {
+        int pi = partitionComparison(arr, low, high, countCompareQuick);
+        quickSorWithComparison(arr, low, pi - 1, countCompareQuick);
+        quickSorWithComparison(arr, pi + 1, high, countCompareQuick);
+    }
+}
+
+// 7.RadixSort
 void radixSortWithComparison(int a[], int n, int &count_compare)
 {
 	int b[n], temp, i ;

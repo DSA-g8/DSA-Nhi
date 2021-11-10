@@ -41,6 +41,7 @@ int main(int argc, char* argv[]) {
     else if (mode == "-c") {
         cout << "COMPARE MODE" << endl;
         //Implement mode comparison here
+        //Nhi
         algorithm_name = argv[2];
         algorithm_name1 = argv[3];
 
@@ -61,6 +62,17 @@ int main(int argc, char* argv[]) {
                 output_param = argv[4];
                 runCommand1(algorithm_name, input_file, output_param);
             }
+        }
+        //Khan
+        if (argc == 6) {
+            input_size = stoi(argv[4]);
+            input_order = argv(5);
+
+            runCommand5(algorithm_name, algorithm_name1, input_size, input_order);
+        }
+        else {
+            input_file = argv[3];
+            runCommand4(algorithm_name, algorithm_name1, input_file);
         }
     
     }
