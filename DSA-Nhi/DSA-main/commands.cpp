@@ -110,11 +110,17 @@ void selectAlgorithmWithTime(string algorithm_name, int *array, int size, double
     }
     else if (algorithm_name == "bubble-sort")
     {
-        // bubble sort
+        start_time = high_resolution_clock::now();
+        bubbleSortWithTime(array, size);
+        end_time = high_resolution_clock::now();
+        exec_time = end_time - start_time;
     }
     else if (algorithm_name == "heap-sort")
     {
-        // heap sort
+        start_time = high_resolution_clock::now();
+        heapSortWithTime(array, size);
+        end_time = high_resolution_clock::now();
+        exec_time = end_time - start_time;
     }
     else if (algorithm_name == "merge-sort")
     {
@@ -161,11 +167,11 @@ void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, 
     }
     else if (algorithm_name == "bubble-sort")
     {
-        // bubble sort
+        bubbleSortWithComparison(array, size, count_compare);
     }
     else if (algorithm_name == "heap-sort")
     {
-        // heap sort
+        heapSortWithComparison(array, size, count_compare);
     }
     else if (algorithm_name == "merge-sort")
     {
@@ -319,6 +325,165 @@ void runCommand2(string algorithm_name, int size, string input_order, string out
 
     delete[] array;
 }
+
+// Command 3 ----------------------------------------------------------------------------------------
+void runCommand3(string algorithm_name, int size, string output_param)
+{
+    double time = 0;
+    unsigned long long count_compare = 0;
+    int* array1 = new int[size];
+    int* array2 = new int[size];
+    int* array3 = new int[size];
+    int* array4 = new int[size];
+    
+     // Display necessary informations
+    cout << "Input size: " << size << endl;
+    
+    // Implement the algorithm here
+    // With Ramdom Data
+    cout << "Input order: Random" << endl;
+    cout << "------------------------" << endl;
+    
+    GenerateData(array1, size, 0);
+    
+    if (output_param == "-time")
+    {
+        selectAlgorithmWithTime(algorithm_name, array1, size, time);
+        cout << "Running time: " << time << " (ms)" << endl;
+    }
+    else if (output_param == "-comp")
+    {
+        selectAlgorithmWithComparison(algorithm_name, array1, size, count_compare);
+        cout << "Comparisons: " << count_compare << endl;
+    }
+    else
+    {
+        //Create and copy data from main array to a second array for sorting to count comparisons
+        int *second_array1 = new int[size];
+        for (int i = 0; i < size; i++) {
+            second_array1[i] = array1[i];
+        }
+
+        selectAlgorithmWithTime(algorithm_name, array1, size, time);
+        selectAlgorithmWithComparison(algorithm_name, second_array1, size, count_compare);
+
+        cout << "Running time: " << time << " (ms)" << endl;
+        cout << "Comparisons: " << count_compare << endl;
+
+        //Delete second array as it's not needed anymore
+        delete[] second_array1;
+    }
+    
+    // With Sorted Data
+    cout << "Input order: Sorted" << endl;
+    cout << "------------------------" << endl;
+    
+    GenerateData(array2, size, 1);
+    
+    if (output_param == "-time")
+    {
+        selectAlgorithmWithTime(algorithm_name, array2, size, time);
+        cout << "Running time: " << time << " (ms)" << endl;
+    }
+    else if (output_param == "-comp")
+    {
+        selectAlgorithmWithComparison(algorithm_name, array2, size, count_compare);
+        cout << "Comparisons: " << count_compare << endl;
+    }
+    else
+    {
+        //Create and copy data from main array to a second array for sorting to count comparisons
+        int *second_array2 = new int[size];
+        for (int i = 0; i < size; i++) {
+            second_array2[i] = array2[i];
+        }
+
+        selectAlgorithmWithTime(algorithm_name, array2, size, time);
+        selectAlgorithmWithComparison(algorithm_name, second_array2, size, count_compare);
+
+        cout << "Running time: " << time << " (ms)" << endl;
+        cout << "Comparisons: " << count_compare << endl;
+
+        //Delete second array as it's not needed anymore
+        delete[] second_array2;
+    }
+    
+    // With Reverse Data
+    cout << "Input order: Reverse" << endl;
+    cout << "------------------------" << endl;
+    
+    GenerateData(array3, size, 2);
+    
+    if (output_param == "-time")
+    {
+        selectAlgorithmWithTime(algorithm_name, array3, size, time);
+        cout << "Running time: " << time << " (ms)" << endl;
+    }
+    else if (output_param == "-comp")
+    {
+        selectAlgorithmWithComparison(algorithm_name, array3, size, count_compare);
+        cout << "Comparisons: " << count_compare << endl;
+    }
+    else
+    {
+        //Create and copy data from main array to a second array for sorting to count comparisons
+        int *second_array3 = new int[size];
+        for (int i = 0; i < size; i++) {
+            second_array3[i] = array3[i];
+        }
+
+        selectAlgorithmWithTime(algorithm_name, array3, size, time);
+        selectAlgorithmWithComparison(algorithm_name, second_array3, size, count_compare);
+
+        cout << "Running time: " << time << " (ms)" << endl;
+        cout << "Comparisons: " << count_compare << endl;
+
+        //Delete second array as it's not needed anymore
+        delete[] second_array3;
+    }
+    
+     // With NearlySorted Data
+    cout << "Input order: NearlySorted" << endl;
+    cout << "------------------------" << endl;
+    
+    GenerateData(array4, size, 3);
+    
+    if (output_param == "-time")
+    {
+        selectAlgorithmWithTime(algorithm_name, array4, size, time);
+        cout << "Running time: " << time << " (ms)" << endl;
+    }
+    else if (output_param == "-comp")
+    {
+        selectAlgorithmWithComparison(algorithm_name, array4, size, count_compare);
+        cout << "Comparisons: " << count_compare << endl;
+    }
+    else
+    {
+        //Create and copy data from main array to a second array for sorting to count comparisons
+        int *second_array4 = new int[size];
+        for (int i = 0; i < size; i++) {
+            second_array4[i] = array4[i];
+        }
+
+        selectAlgorithmWithTime(algorithm_name, array4, size, time);
+        selectAlgorithmWithComparison(algorithm_name, second_array4, size, count_compare);
+
+        cout << "Running time: " << time << " (ms)" << endl;
+        cout << "Comparisons: " << count_compare << endl;
+
+        //Delete second array as it's not needed anymore
+        delete[] second_array4;
+    }
+    
+    // Write sorted array to output file
+    writeToOutputFile("output.txt", array1, size);
+    writeToOutputFile("output.txt", array2, size);
+    writeToOutputFile("output.txt", array3, size);
+    writeToOutputFile("output.txt", array4, size);
+
+    delete[] array1, array2, array3, array4;
+}      
 
 // Command 4 ----------------------------------------------------------------------------------------
 void runCommand4(string algorithm_name, string algorithm_name1, string input_file)
