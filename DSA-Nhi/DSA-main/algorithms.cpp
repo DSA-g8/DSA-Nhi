@@ -71,6 +71,93 @@ void insertionSortWithTime(int arr[], int n)
     }
 }
 
+//3. BubbleSort, souce:https://www.geeksforgeeks.org/bubble-sort/
+void bubbleSortWithTime(int a[], int n) {
+	for (int i = 0; i < n - 1; i++)
+		for (int j = 0; j < n - i - 1; j++)
+			if (a[j] > a[j + 1])
+				swap(a[j], a[j + 1]);
+}
+
+void bubbleSortWithComparison(int a[], int n,unsigned long long &compareCountBubble) {
+	for (int i = 0; ++compareCountBubble && i < n - 1; i++)
+		for (int j = 0; ++compareCountBubble && j < n - i - 1; j++)
+			if (++compareCountBubble && a[j] > a[j + 1])
+				swap(a[j], a[j + 1]);
+}
+
+//4. HeapSort
+void heapBuildWithTime(int index, int a[], int n){
+	bool isHeap = false;
+	int l, k = index;
+	
+	while (!isHeap && (2*k + 1) < n) {
+		l = 2*k + 1;
+		
+		if (l < n - 1)
+			if (a[l] < a[l + 1])
+				l = l + 1;
+			
+		if (a[k] > a[l])
+			isHeap = true;
+		else {
+			swap(a[k], a[l]);
+			k = l;
+		}
+	}
+}
+
+void heapSortWithTime(int a[], int n) {
+	int pos = (n - 1)/2;
+	while (pos >= 0) {
+		heapBuildWithTime(pos, a, n);
+		pos = pos - 1;
+	}
+	for (int i = n - 1; i > 0; i--) {
+		swap(a[0], a[i]);
+		n = n - 1;
+		heapBuildWithTime(0, a, n);
+	}
+}
+
+void heapBuildWithComparison (int index, int a[], int n,unsigned long long &compareCountHeap){
+	bool isHeap = false;
+	int l, k = index;
+	
+	while ((++compareCountHeap && !isHeap) && (++compareCountHeap && (2*k + 1) < n)) {
+		
+		l = 2*k + 1;
+		
+		if (++compareCountHeap && l < n - 1){
+			if (++compareCountHeap && a[l] < a[l + 1]){
+				l = l + 1;
+			}
+		}
+			
+		if (++compareCountHeap && a[k] > a[l]){
+			isHeap = true;
+		}
+		else {
+			swap(a[k], a[l]);
+			k = l;
+		}
+	}
+}
+
+void heapSortWithComparison(int a[], int n, unsigned long long &compareCountHeap) {
+	int pos = (n - 1)/2;
+	while (++compareCountHeap && pos >= 0) {
+		heapBuildWithComparison(pos, a, n, compareCountHeap);
+		pos = pos - 1;
+	}
+	
+	for (int i = n - 1;++compareCountHeap && i > 0; i--) {
+		swap(a[0], a[i]);
+		n = n - 1;
+		heapBuildWithComparison(0, a, n, compareCountHeap);
+	}
+}
+
 //6. QuickSort, souce:https://www.geeksforgeeks.org/quick-sort/
 int partitionTime(int arr[], int low, int high)
 {
