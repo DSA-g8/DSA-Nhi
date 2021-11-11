@@ -18,3 +18,9 @@ void mergeSortWithComparison(int *arr, int low, int high, unsigned long long &co
 
 void radixSortWithComparison(int a[], int n, unsigned long long &count_compare);
 void radixSortWithTime(int a[], int n);
+
+void bubbleSortWithTime(int a[], int n);
+void bubbleSortWithComparison(int a[], int n,unsigned long long &compareCountBubble);
+
+void heapSortWithTime(int a[], int n);
+void heapSortWithComparison(int a[], int n, unsigned long long &compareCountHeap);
