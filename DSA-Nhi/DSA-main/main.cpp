@@ -56,14 +56,22 @@ int main(int argc, char *argv[])
 
         if (argc == 6)
         {
+<<<<<<< HEAD
             input_size = stoi(argv[4]);
             input_order = argv[5];
             runCommand5(algorithm_name, algorithm_name2, input_size, input_order);
+=======
+            // runCommand5();
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
         }
         else
         {
             input_file = argv[4];
+<<<<<<< HEAD
             runCommand4(algorithm_name, algorithm_name2, input_file);
+=======
+            runCommand4(algorithm_name, algorithm_name1, input_file);
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
         }
     }
     else if (mode == "-h" || mode == "--help")

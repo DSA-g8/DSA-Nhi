@@ -58,6 +58,7 @@ void writeToInputFile(string input_file, int array[], int size)
     fo.close();
 }
 
+<<<<<<< HEAD
 void checkInputOrder(string input_order, int &flag_order, string &order_display) {
     if (input_order == "-rand")
     {
@@ -81,6 +82,8 @@ void checkInputOrder(string input_order, int &flag_order, string &order_display)
     }
 }
 
+=======
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
 void selectAlgorithmWithTime(string algorithm_name, int *array, int size, double &time)
 {
     duration<double, milli> exec_time;
@@ -96,10 +99,14 @@ void selectAlgorithmWithTime(string algorithm_name, int *array, int size, double
     }
     else if (algorithm_name == "insertion-sort")
     {
+<<<<<<< HEAD
         start_time = high_resolution_clock::now();
         insertionSortWithTime(array, size);
         end_time = high_resolution_clock::now();
         exec_time = end_time - start_time;
+=======
+        // insertion sort
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
     }
     else if (algorithm_name == "bubble-sort")
     {
@@ -118,10 +125,14 @@ void selectAlgorithmWithTime(string algorithm_name, int *array, int size, double
     }
     else if (algorithm_name == "quick-sort")
     {
+<<<<<<< HEAD
         start_time = high_resolution_clock::now();
         quickSorWithTime(array, 0, size - 1);
         end_time = high_resolution_clock::now();
         exec_time = end_time - start_time;
+=======
+        // quick sort
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
     }
     else
     {
@@ -142,7 +153,11 @@ void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, 
     }
     else if (algorithm_name == "insertion-sort")
     {
+<<<<<<< HEAD
         insertionSortWithComparison(array, size, count_compare);
+=======
+        // insertion sort
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
     }
     else if (algorithm_name == "bubble-sort")
     {
@@ -158,7 +173,11 @@ void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, 
     }
     else if (algorithm_name == "quick-sort")
     {
+<<<<<<< HEAD
         quickSorWithComparison(array, 0, size - 1, count_compare);
+=======
+        // quick sort
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
     }
     else
     {
@@ -221,11 +240,37 @@ void runCommand2(string algorithm_name, int size, string input_order, string out
     double time = 0;
     unsigned long long count_compare = 0;
     int *array = new int[size];
+<<<<<<< HEAD
     int flag_order = 0;
     string order_display;
 
     //Check input order to change flag_order and order_display accordingly
     checkInputOrder(input_order, flag_order, order_display);
+=======
+    int FLAG_ORDER;
+    string order;
+
+    if (input_order == "-rand")
+    {
+        FLAG_ORDER = 0;
+        order = "Random";
+    }
+    else if (input_order == "-sorted")
+    {
+        FLAG_ORDER = 1;
+        order = "Sorted";
+    }
+    else if (input_order == "-rev")
+    {
+        FLAG_ORDER = 2;
+        order = "Reverse";
+    }
+    else
+    {
+        FLAG_ORDER = 3;
+        order = "Nearly sorted";
+    }
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
 
     // Display necessary informations
     cout << "Input size: " << size << endl;
@@ -233,7 +278,11 @@ void runCommand2(string algorithm_name, int size, string input_order, string out
     cout << "------------------------" << endl;
 
     // Generate data for main array
+<<<<<<< HEAD
     GenerateData(array, size, flag_order);
+=======
+    GenerateData(array, size, FLAG_ORDER);
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
     writeToInputFile("input.txt", array, size);
 
     // Implement the algorithm here
@@ -300,6 +349,7 @@ void runCommand4(string algorithm_name, string algorithm_name1, string input_fil
     writeToOutputFile("output.txt", array1, size);
 
     delete[] array1, array2, array3, array4;
+<<<<<<< HEAD
 }
 
 //Command 5 ------------------------------------------------------------------------
@@ -342,4 +392,6 @@ void runCommand5(string algorithm_name1, string algorithm_name2, int size, strin
     cout << "Comparisons: " << count_compare1 << " | " << count_compare2 << endl;
 
     delete[] array1, array2, array3, array4;
+=======
+>>>>>>> ff31632aa62dac561bcb59391a53ccfe3d0d667e
 }
