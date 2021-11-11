@@ -35,7 +35,9 @@ int main(int argc, char *argv[])
             temp = argv[3];
             if (isNumber(temp))
             {
-                // runCommand3();
+                input_size = stoi(argv[3]);
+                output_param = argv[4];
+                runCommand3(algorithm_name, input_size, output_param)
             }
             else
             {
