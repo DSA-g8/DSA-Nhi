@@ -175,7 +175,7 @@ void heapSortWithComparison(int a[], int n, unsigned long long &compareCountHeap
 }
 
 // 6. QuickSort, souce:https://www.geeksforgeeks.org/quick-sort/
-int partitionTime(int arr[], int low, int high)
+int partitionTime(int *arr, int low, int high)
 {
     int pivot = arr[high]; // pivot
     int i = (low - 1);
@@ -192,7 +192,7 @@ int partitionTime(int arr[], int low, int high)
     return (i + 1);
 }
 
-int partitionComparison(int arr[], int low, int high, unsigned long long &countCompareQuick)
+int partitionComparison(int *arr, int low, int high, unsigned long long &countCompareQuick)
 {
     int pivot = arr[high]; // pivot
     int i = (low - 1);
@@ -209,23 +209,38 @@ int partitionComparison(int arr[], int low, int high, unsigned long long &countC
     return (i + 1);
 }
 
-void quickSorWithTime(int arr[], int low, int high)
+void quickSorWithTime(int *arr, int low, int high)
 {
     if (low < high)
     {
         int pi = partitionTime(arr, low, high);
-        quickSorWithTime(arr, low, pi - 1);
-        quickSorWithTime(arr, pi + 1, high);
+        if (pi - low < high - pi)
+        {
+             quickSorWithTime(arr, low, pi - 1);
+              low = pi + 1;
+        }
+        else
+        {
+            quickSorWithTime(arr, pi + 1, high);
+            high = pi -1;
+        }
+        
     }
 }
 
-void quickSorWithComparison(int arr[], int low, int high, unsigned long long &countCompareQuick)
+void quickSorWithComparison(int *arr, int low, int high, unsigned long long &countCompareQuick)
 {
     if (++countCompareQuick && low < high)
     {
         int pi = partitionComparison(arr, low, high, countCompareQuick);
-        quickSorWithComparison(arr, low, pi - 1, countCompareQuick);
-        quickSorWithComparison(arr, pi + 1, high, countCompareQuick);
+        if (++countCompareQuick && (pi - low < high - pi))
+        {
+            quickSorWithComparison(arr, low, pi - 1, countCompareQuick);
+            low = pi + 1;
+        } else {
+            quickSorWithComparison(arr, pi + 1, high, countCompareQuick);
+            high = pi -1;
+        }
     }
 }
 
