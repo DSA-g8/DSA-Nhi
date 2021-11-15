@@ -102,7 +102,7 @@ void selectAlgorithmWithTime(string algorithm_name, int *array, int size, double
     else if (algorithm_name == "quick-sort")
     {
         start_time = high_resolution_clock::now();
-        quickSorWithTime(array, 0, size - 1);
+        quickSortWithTime(array, 0, size - 1);
         end_time = high_resolution_clock::now();
         exec_time = end_time - start_time;
     }
@@ -141,7 +141,7 @@ void selectAlgorithmWithComparison(string algorithm_name, int *array, int size, 
     }
     else if (algorithm_name == "quick-sort")
     {
-        quickSorWithComparison(array, 0, size - 1, count_compare);
+        quickSortWithComparison(array, 0, size - 1, count_compare);
     }
     else
     {

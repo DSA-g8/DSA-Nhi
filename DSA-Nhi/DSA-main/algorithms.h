@@ -7,8 +7,8 @@ void selectionSortWithTime(int a[], int n);
 void insertionSortWithTime(int arr[], int n);
 void insertionSortWithComparison(int arr[], int n, unsigned long long &compareCountInsert);
 
-void quickSorWithTime(int arr[], int low, int high);
-void quickSorWithComparison(int arr[], int low, int high, unsigned long long &countCompareQuick);
+void quickSortWithTime(int *arr, int low, int high);
+void quickSortWithComparison(int *arr, int low, int high, unsigned long long &countCompareQuick);
 
 void mergeSortWithTime(int *arr, int low, int high);
 void mergeSortWithComparison(int *arr, int low, int high, unsigned long long &count_compare);

@@ -177,44 +177,8 @@ void heapSortWithComparison(int a[], int n, unsigned long long &compareCountHeap
 // 6. QuickSort, souce:https://www.geeksforgeeks.org/quick-sort/
 int partitionTime(int *arr, int low, int high)
 {
-    int pivot = arr[high]; // pivot
-    int i = (low - 1);
-
-    for (int j = low; j <= high - 1; j++)
-    {
-        if (arr[j] < pivot)
-        {
-            i++;
-            swap(arr[i], arr[j]);
-        }
-    }
-    swap(arr[i + 1], arr[high]);
-    return (i + 1);
-}
-
-int partitionComparison(int *arr, int low, int high, unsigned long long &countCompareQuick)
-{
-    int pivot = arr[high]; // pivot
-    int i = (low - 1);
-
-    for (int j = low; ++countCompareQuick && j <= high - 1; j++)
-    {
-        if (++countCompareQuick && arr[j] < pivot)
-        {
-            i++;
-            swap(arr[i], arr[j]);
-        }
-    }
-    swap(arr[i + 1], arr[high]);
-    return (i + 1);
-}
-
-void quickSorWithTime(int *arr, int low, int high)
-{
     int i = low, j = high;
-    int tmp;
     int pivot = arr[(low + high) / 2];
-      /* partition */
 
     while (i <= j) {
 
@@ -228,39 +192,47 @@ void quickSorWithTime(int *arr, int low, int high)
             j--;
         }
     };
-    /* recursion */
-    if (low < j){
-        quickSorWithTime(arr, low, j);
-    }
-    if (i < high)
-        quickSorWithTime(arr, i, high);
+    return i;
 }
 
-void quickSorWithComparison(int *arr, int low, int high, unsigned long long &countCompareQuick)
+int partitionComparison(int *arr, int low, int high, unsigned long long &countCompareQuick)
 {
     int i = low, j = high;
-    int tmp;
     int pivot = arr[(low + high) / 2];
-      /* partition */
 
     while (++countCompareQuick && i <= j) {
 
-        while ( ++countCompareQuick && arr[i] < pivot)
+        while (++countCompareQuick && arr[i] < pivot)
                 i++;
         while (++countCompareQuick && arr[j] > pivot)
                 j--;
-        if ( ++countCompareQuick && i <= j) {
+        if (++countCompareQuick && i <= j) {
             swap(arr[i], arr[j]);
             i++;
             j--;
         }
     };
-    /* recursion */
-    if (++countCompareQuick && low < j){
-        quickSorWithComparison(arr, low, j, countCompareQuick);
+    return i;
+}
+
+void quickSortWithTime(int *arr, int low, int high)
+{
+    int index = partitionTime(arr, low, high);
+    if (low < index -1){
+        quickSortWithTime(arr, low, index - 1);
     }
-    if ( ++countCompareQuick &&i < high)
-        quickSorWithComparison(arr, i, high, countCompareQuick);
+    if (index < high)
+        quickSortWithTime(arr, index, high);
+}
+
+void quickSortWithComparison(int *arr, int low, int high, unsigned long long &countCompareQuick)
+{
+    int index = partitionComparison(arr, low, high, countCompareQuick);
+    if (++countCompareQuick && low < index -1){
+        quickSortWithComparison(arr, low, index - 1, countCompareQuick);
+    }
+    if (++countCompareQuick && index < high)
+        quickSortWithComparison(arr, index, high, countCompareQuick);
 }
 
 // 7.MergeSort, souce: https://www.geeksforgeeks.org/merge-sort/
